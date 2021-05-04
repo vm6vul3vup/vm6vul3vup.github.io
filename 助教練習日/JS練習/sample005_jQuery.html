@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <h1>Hello, world!</h1>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        // $.ajax({
+        //     url: 'https://raw.githubusercontent.com/vm6vul3vup/FrontEnd-BuildSchool2021/main/JavaScript%E7%B7%B4%E7%BF%92/Map/taiwan.json',
+        //     method: 'get',
+        //     dataType: 'json',
+        //     success: function(res){
+        //         //成功
+        //         console.log(res);
+        //     },
+
+        //     error: function(err){
+        //         //失敗
+        //         console.log(err);
+        //     }
+        // })
+
+        // axios.get('https://raw.githubusercontent.com/vm6vul3vup/FrontEnd-BuildSchool2021/main/JavaScript%E7%B7%B4%E7%BF%92/Map/taiwan.json')
+        // .then(function(res){
+        //     //成功
+        //     console.log(this);
+        //     console.log(res.data);
+        //     console.table(res.data);
+        // })
+        // .catch(function(err){
+        //     //失敗
+        //     console.log(err)
+        // })
+
+        Promise.all([axiosGetArea(),getWaterUse()])
+        .then((res)=>{
+            let [res1,res2] = res;
+            console.log(res1);
+            console.log(res2);
+            console.log('地區資料跟用水資料都有了')
+
+
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+
+
+
+
+        function getArea() {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: 'https://raw.githubusercontent.com/vm6vul3vup/FrontEnd-BuildSchool2021/main/JavaScript%E7%B7%B4%E7%BF%92/Map/taiwan.json',
+                    method: 'get',
+                    dataType: 'json',
+                    success: function(res){
+                        //成功
+                        resolve(res);
+                    },
+
+                    error: function(err){
+                        //失敗
+                        reject(err);
+                    }
+                })
+            })
+        }
+
+        function getWaterUse() {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: 'https://raw.githubusercontent.com/vm6vul3vup/FrontEnd-BuildSchool2021/main/JavaScript%E7%B7%B4%E7%BF%92/Map/water.json',
+                    method: 'get',
+                    dataType: 'json',
+                    success: function(res){
+                        //成功
+                        resolve(res);
+                    },
+
+                    error: function(err){
+                        //失敗
+                        reject(err);
+                    }
+                })
+            })
+        }
+
+        function axiosGetArea() {
+            return axios.get('https://raw.githubusercontent.com/vm6vul3vup/FrontEnd-BuildSchool2021/main/JavaScript%E7%B7%B4%E7%BF%92/Map/taiwan.json');
+        }
+
+    </script>
+
+</body>
+
+</html>

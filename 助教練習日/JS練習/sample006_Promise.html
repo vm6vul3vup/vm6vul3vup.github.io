@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <h1>Hello, world!</h1>
+
+    <script>
+
+        //方法二
+        Promise.all([A(),B()])
+        .then((res) => {
+            let [res1,res2] = res;
+            console.log(res1);
+            console.log(res2);
+
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+
+
+        //方法 LOW
+        // A()
+        // .then((res)=>{
+        //     console.log(res);
+        //     return B()
+        // })
+        // .then((res)=>{
+        //     console.log(res);
+        // })
+        // .catch((err)=>{
+        //     console.log(err);
+        // });
+
+        // A().then((res)=>{
+        //     console.log(res);
+        // })
+        // .catch((err)=>{
+        //     console.log(err);
+        // });
+
+        function A(){
+            return new Promise(function(resolve,reject){
+                console.log('開始做A');
+                let isDone = true;
+                if(isDone) {
+                    return resolve('A做成功');
+                } else{
+                    return reject('A做失敗');
+                }
+            })
+        }
+
+        function B(){
+            return new Promise(function(resolve,reject){
+                console.log('開始做B');
+                let isDone = true;
+                if(isDone) {
+                    resolve('B做成功');
+                } else{
+                    reject('B做失敗');
+                }
+            })
+        }
+
+    </script>
+    
+
+</body>
+
+</html>
