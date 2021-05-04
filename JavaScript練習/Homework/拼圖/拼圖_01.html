@@ -46,8 +46,11 @@
             <div style="top:0; left:0;" id="b1" class="block"></div>
         </div>
         <div class="btn-group">
-            <button id="x-btn">X移動</button>
-            <button id="y-btn">Y移動</button>
+            <button id="left-btn">左移動</button>
+            <button id="right-btn">右移動</button>
+            <br>
+            <button id="top-btn">上移動</button>
+            <button id="down-btn">下移動</button>
         </div>
     </div>
 
@@ -59,15 +62,28 @@
         crossorigin="anonymous"></script> -->
 
     <script>
-        document.getElementById('x-btn').addEventListener('click',function(){
+        document.getElementById('right-btn').addEventListener('click',function(){
             moveX('b1',200)
             .then(res =>{
                 console.log(res);
             })
         })
+        document.getElementById('left-btn').addEventListener('click',function(){
+            moveX('b1',-200)
+            .then(res =>{
+                console.log(res);
+            })
+        })
 
-        document.getElementById('y-btn').addEventListener('click',function(){
+        document.getElementById('down-btn').addEventListener('click',function(){
             moveY('b1',200)
+            .then(res =>{
+                console.log(res);
+            })
+        })
+
+        document.getElementById('top-btn').addEventListener('click',function(){
+            moveY('b1',-200)
             .then(res =>{
                 console.log(res);
             })
@@ -108,7 +124,7 @@
                             box.style.top = parseInt(box.style.top,10) + perMove + 'px';
                             console.log(parseInt(box.style.top,10));
                             if(parseInt(box.style.top,10) == target){
-                                resolve('X移動完成');
+                                resolve('Y移動完成');
                             }
                         }, 1 * t);
                     })(i)

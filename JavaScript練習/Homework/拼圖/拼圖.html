@@ -1,0 +1,238 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>拼圖</title>
+    <style type="text/css">
+        #pt_main {
+            margin: 0 auto;
+            border: 2px solid #000;
+        }
+
+        #menu {
+            text-align: center;
+        }
+
+        #pt_main p {
+            padding: 0px;
+            margin: 0px;
+            float: left;
+            line-height: 200px;
+            font-size: 100px;
+            text-align: center;
+        }
+
+        #pt_main p:hover {
+            cursor: pointer;
+        }
+
+        .hui {
+            background: #CCC;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+        //p邊框寬度
+        var border_w = 2;
+        //p大小
+        var size = 50;
+        //是否過關
+        var st = false;
+        //背景圖片地址（功能還沒寫）
+        var imgurl = '';
+        //灰色塊的位置
+        var hui = 0;
+        //遊戲寬高
+        var width = 3;
+        var height = 3;
+        $(function () {
+            init();
+        });
+        //判斷兩個數字能不能交換
+        function ut_jh(a, b) {
+            if (Math.abs(a - b) == width) {
+                return true;
+            }
+            if (Math.abs(a - b) == 1 && ut_line(a, b, width)) {
+                return true;
+            }
+            return false;
+        }
+        //判斷兩個數字是否在同一行
+        function ut_line(a, b, width) {
+            if (parseInt(a / width) == parseInt(b / width)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        //生成可交換的集合（可與灰色塊交換的集合）
+        function ut_sc(a) {
+            //最多為4個
+            var li = new Array();
+            var i = 0;
+            if (a - width >= 0) {
+                li[i++] = a - width;
+            }
+            if (a + width <= width * height - 1) {
+                li[i++] = a + width;
+            }
+            if (ut_line(a, a - 1, width) && a - 1 >= 0) {
+                li[i++] = a - 1;
+            }
+            if (ut_line(a, a + 1, width) && a + 1 <= width * height - 1) {
+                li[i++] = a + 1;
+            }
+            //alert(a+'-length:'+li.length)
+            return li;
+        }
+        //塊的點擊事件
+        function pt_click() {
+            if (!st) {
+                return false;
+            }
+            //點擊塊的索引
+            var index = get().index($(this));
+
+            if (ut_jh(hui, index)) {
+                jh(hui, index);
+
+                //判斷是否過關
+                pd();
+            }
+
+
+        }
+        //兩塊交換
+        function jh(hui_, index_) {
+            //alert(hui+1+","+(index_+1));
+            var list = get();//所有塊
+            var h = list.eq(hui_);//灰色塊
+            var d = list.eq(index_);//點擊的塊
+
+            //交換樣式
+            h.removeClass();
+            d.addClass('hui');
+            h.html(d.html());
+            d.html('');
+            hui = index_;
+
+            //交換各自屬性
+            tg = h.attr('tg');
+            h.attr('tg', d.attr('tg'));
+            d.attr('tg', tg);
+        }
+
+        function init() {
+            //不能太小...
+            if (width < 3 || height < 3) {
+                return false;
+            }
+            hui = width * height - 1;
+            var pp = $("#pt_main");
+            pp.html('');
+            //創建並初始化
+            var k = width * size + border_w * width * 2;
+            var g = height * size + border_w * height * 2;
+            pp.css({ 'width': k, 'height': g });
+            for (i = 0; i < width * height; i++) {
+                var n = $("<p>" + (i + 1) + "</p>");
+                n.css({
+                    'width': size,
+                    'height': size,
+                    border: border_w + 'px solid #000',
+                    lineHeight: size + 'px',
+                    fontSize: parseInt(size / 3) + 'px'
+                });
+                if (imgurl != '') {
+
+                }
+                pp.append(n);
+                //alert(i)
+
+            }
+            get().last().html('');
+            get().last().addClass('hui');
+            get().on('click', pt_click);
+
+            //為每個塊附加屬性，記錄當前的值
+            $("#pt_main p").each(function (index, element) {
+                $(element).attr('tg', index);
+            });
+
+
+            dl();
+            st = true;
+        }
+        //判斷是否通過(當每個塊的值與自身的下標對應)
+        function pd() {
+            var b = true;
+            get().each(function (index, element) {
+                if ($(element).attr('tg') != index) {
+                    b = false;
+                    return false;
+                }
+
+            });
+            if (b) {
+                st = false;
+                alert("恭喜過關！");
+                return true;
+            } else {
+                return false;
+            }
+        }
+        //獲取集合
+        function get() {
+            return $("#pt_main p");
+        }
+        //打亂
+        function dl() {
+            //打亂次數
+            var count = width * width * width;
+
+            for (i = 0; i < count; i++) {
+                //可交換集合
+                var li = ut_sc(hui);
+                var num = parseInt((li.length) * Math.random());
+                jh(hui, li[num]);
+            }
+
+        }
+        //初始化按鈕的點擊事件
+        function csh() {
+            var dxv = $('#dx').val();
+            if (!parseInt(dxv)) {
+                alert('請輸入3-10之間的數字');
+                $('#dx').val('');
+                return false;
+            }
+            var v = parseInt(dxv);
+            if (v < 3 || v > 10) {
+                alert('請輸入3-10之間的數字');
+                $('#dx').val('');
+                return false;
+            }
+            width = v;
+            height = v;
+            init();
+        }
+    </script>
+</head>
+
+<body>
+    <p id='menu'>
+        大小:<input id='dx' style="text-align:center;width:40px;" />
+        <button onclick="csh()">初始化</button>
+        <button onclick="init()">刷新</button>
+    </p>
+    <p id="pt_main">
+
+    </p>
+
+</body>
+
+</html>
