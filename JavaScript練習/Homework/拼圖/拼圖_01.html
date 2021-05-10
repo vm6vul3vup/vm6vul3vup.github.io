@@ -11,46 +11,34 @@
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
         integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous"> -->
-    <style>
-        .container {
-            display: flex;
-        }
+    <link rel="stylesheet" href="./style.css">
 
-        .btn-group button {
-            padding: 20px;
-            margin: 5px;
-            font-size: 20px;
-        }
-
-        .box {
-            width: 600px;
-            height: 600px;
-            background-color: rgba(255, 0, 0, 0.3);
-            display: flex;
-            position: relative;
-        }
-
-        .block {
-            width: 200px;
-            height: 200px;
-            background-color: greenyellow;
-            position: absolute;
-        }
-    </style>
     <title>Hello, world!</title>
 </head>
 
 <body>
+    <div class="btn-group">
+        <button id="left-btn">左移動</button>
+        <button id="right-btn">右移動</button>
+        <br>
+        <button id="top-btn">上移動</button>
+        <button id="down-btn">下移動</button>
+    </div>
     <div class="container">
         <div class="box">
-            <div style="top:0; left:0;" id="b1" class="block"></div>
+            <!-- <div style="top:0; left:0;" id="b1" class="block"></div> -->
+            <img id="img_11" value = '11' style="top:0; left:0;" src="./android_logo_small.png" alt="logo1">
+            <img id="img_12" value = '12' style="top:0; left:0;" src="./android_logo_small.png" alt="logo2">
+            <img id="img_13" value = '13' style="top:0; left:0;" src="./android_logo_small.png" alt="logo3">
+            <img id="img_21" value = '21' style="top:0; left:0;" src="./android_logo_small.png" alt="logo4">
+            <!-- <img id="img_22" style="top:0; left:0;" src="./android_logo_small.png" alt="logo5"> -->
+            <img id="img_23" value = '23' style="top:0; left:0;" src="./android_logo_small.png" alt="logo6">
+            <img id="img_31" value = '31' style="top:0; left:0;" src="./android_logo_small.png" alt="logo7">
+            <img id="img_32" value = '32' style="top:0; left:0;" src="./android_logo_small.png" alt="logo8">
+            <img id="img_33" value = '33' style="top:0; left:0;" src="./android_logo_small.png" alt="logo9">
         </div>
-        <div class="btn-group">
-            <button id="left-btn">左移動</button>
-            <button id="right-btn">右移動</button>
-            <br>
-            <button id="top-btn">上移動</button>
-            <button id="down-btn">下移動</button>
+        <div>
+            <img id="original_image" src="./android_logo_small.png" alt="logo">
         </div>
     </div>
 
@@ -61,47 +49,163 @@
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
         crossorigin="anonymous"></script> -->
 
-    <script>
-        document.getElementById('right-btn').addEventListener('click',function(){
-            moveX('b1',200)
-            .then(res =>{
-                console.log(res);
-            })
+    <script type="module">
+        import { $g, $c } from '../../modules/helpers.js';
+        let Moving_Distance = 100;
+        let ans = ['11', '12', '13', '21', '空', '23', '31', '32', '33'];
+        let nowps = ['11', '12', '13', '21', '空', '23', '31', '32', '33'];
+        let empty_up = '牆';
+        let empty_down = '牆';
+        let empty_left = '牆';
+        let empty_right = '牆';
+        $g('#img_11').value = '11';
+        $g('#img_12').value = '12';
+        $g('#img_13').value = '13';
+        $g('#img_21').value = '21';
+        $g('#img_23').value = '23';
+        $g('#img_31').value = '31';
+        $g('#img_32').value = '32';
+        $g('#img_33').value = '33';
+
+        // document.getElementById('right-btn').addEventListener('click', function () {
+        //     moveX('b1', Moving_Distance)
+        //         .then(res => {
+        //             console.log(res);
+        //         })
+        // })
+        // document.getElementById('left-btn').addEventListener('click', function () {
+        //     moveX('b1', -Moving_Distance)
+        //         .then(res => {
+        //             console.log(res);
+        //         })
+        // })
+
+        // document.getElementById('down-btn').addEventListener('click', function () {
+        //     moveY('b1', Moving_Distance)
+        //         .then(res => {
+        //             console.log(res);
+        //         })
+        // })
+
+        // document.getElementById('top-btn').addEventListener('click',function(){
+        //     moveY('b1',-Moving_Distance)
+        //     .then(res =>{
+        //         console.log(res);
+        //     })
+        // })
+
+        document.getElementById('img_11').addEventListener('click', function () {
+            let index = nowps.indexOf(this.value);
+            console.log(this.value);
+            console.log(index);
         })
-        document.getElementById('left-btn').addEventListener('click',function(){
-            moveX('b1',-200)
-            .then(res =>{
-                console.log(res);
-            })
+        document.getElementById('img_12').addEventListener('click', function () {
+            
+        })
+        document.getElementById('img_13').addEventListener('click', function () {
+            
+        })
+        document.getElementById('img_21').addEventListener('click', function () {
+            
+        })
+        document.getElementById('img_23').addEventListener('click', function () {
+            
+        })
+        document.getElementById('img_31').addEventListener('click', function () {
+            
+        })
+        document.getElementById('img_32').addEventListener('click', function () {
+            
+        })
+        document.getElementById('img_33').addEventListener('click', function () {
+            
         })
 
-        document.getElementById('down-btn').addEventListener('click',function(){
-            moveY('b1',200)
-            .then(res =>{
-                console.log(res);
-            })
-        })
+        function checkps(index){
+            //let empty = nowps.indexOf('空');
+            //console.log(empty);
+        }
 
-        document.getElementById('top-btn').addEventListener('click',function(){
-            moveY('b1',-200)
-            .then(res =>{
-                console.log(res);
-            })
-        })
+        function checkEmptyPlace(){
+            let empty = nowps.indexOf('空');
+            if(empty == 0){
+                empty_up = '牆';
+                empty_down = '21';
+                empty_left = '牆';
+                empty_right = '12';
+            }
+            else if(empty == 1){
+                empty_up = '牆';
+                empty_down = '22';
+                empty_left = '11';
+                empty_right = '13';
+            }
+            else if(empty == 2){
+                empty_up = '牆';
+                empty_down = '23';
+                empty_left = '12';
+                empty_right = '牆';
+            }
+            else if(empty == 3){
+                empty_up = '11';
+                empty_down = '31';
+                empty_left = '牆';
+                empty_right = '22';
+            }
+            else if(empty == 4){
+                empty_up = '12';
+                empty_down = '32';
+                empty_left = '21';
+                empty_right = '23';
+            }
+            else if(empty == 5){
+                empty_up = '13';
+                empty_down = '33';
+                empty_left = '22';
+                empty_right = '牆';
+            }
+            else if(empty == 6){
+                empty_up = '21';
+                empty_down = '牆';
+                empty_left = '牆';
+                empty_right = '32';
+            }
+            else if(empty == 7){
+                empty_up = '22';
+                empty_down = '牆';
+                empty_left = '31';
+                empty_right = '33';
+            }
+            else if(empty == 8){
+                empty_up = '23';
+                empty_down = '牆';
+                empty_left = '32';
+                empty_right = '牆';
+            }
+            else{
+                empty_up = '牆';
+                empty_down = '牆';
+                empty_left = '牆';
+                empty_right = '牆';
+            }
+        }
+        checkEmptyPlace();
+        console.log(`上:${empty_up},下:${empty_down},左:${empty_left},右:${empty_right}`);
 
         function moveX(id, x) {
             let box = document.getElementById(id);
             let target = parseInt(box.style.left, 10) + x;
+            console.log(target)
             let time = 100;
             let perMove = x / time;
 
             return new Promise((resolve, reject) => {
                 for (let i = 1; i <= time; i++) {
                     (function (t) {
-                        setTimeout(() => { 
-                            box.style.left = parseInt(box.style.left,10) + perMove + 'px';
-                            console.log(parseInt(box.style.left,10));
-                            if(parseInt(box.style.left,10) == target){
+                        setTimeout(() => {
+                            box.style.left = parseInt(box.style.left, 10) + perMove + 'px';
+                            console.log(parseInt(box.style.left, 10));
+                            if (parseInt(box.style.left, 10) == target) {
                                 resolve('X移動完成');
                             }
                         }, 1 * t);
@@ -114,16 +218,17 @@
         function moveY(id, y) {
             let box = document.getElementById(id);
             let target = parseInt(box.style.top, 10) + y;
+            console.log(box.style.top);
             let time = 100;
             let perMove = y / time;
 
             return new Promise((resolve, reject) => {
                 for (let i = 1; i <= time; i++) {
                     (function (t) {
-                        setTimeout(() => { 
-                            box.style.top = parseInt(box.style.top,10) + perMove + 'px';
-                            console.log(parseInt(box.style.top,10));
-                            if(parseInt(box.style.top,10) == target){
+                        setTimeout(() => {
+                            box.style.top = parseInt(box.style.top, 10) + perMove + 'px';
+                            console.log(parseInt(box.style.top, 10));
+                            if (parseInt(box.style.top, 10) == target) {
                                 resolve('Y移動完成');
                             }
                         }, 1 * t);

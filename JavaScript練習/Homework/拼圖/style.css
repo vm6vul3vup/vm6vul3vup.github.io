@@ -1,0 +1,101 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-group{
+    text-align: center;
+}
+
+
+.btn-group button {
+    padding: 20px;
+    margin: 5px;
+    font-size: 20px;
+}
+
+.box {
+    width: 300px;
+    height: 300px;
+    background-color: rgba(255, 0, 0, 0.3);
+    display: flex;
+    position: relative;
+}
+
+.block {
+    width: 100px;
+    height: 100px;
+    background-color: greenyellow;
+    position: absolute;
+}
+
+#original_image{
+    width: 300px;
+    height: 300px;
+    background-color: rgba(255, 0, 0, 0.3);
+    margin-left: 100px;
+}
+
+#img_11{
+    position:absolute;
+    /* 上右下左 */
+    clip:rect(0px 100px 100px 0px);
+    width: 300px;
+    height: 300px;
+}
+#img_12{
+    position:absolute;
+    /* 上右下左 */
+    clip:rect(0px 200px 100px 100px);
+    width: 300px;
+    height: 300px;
+}
+#img_13{
+    position:absolute;
+    /* 上右下左 */
+    clip:rect(0px 300px 100px 200px);
+    width: 300px;
+    height: 300px;
+}
+#img_21{
+    position:absolute;
+    /* 上右下左 */
+    clip:rect(100px 100px 200px 0px);
+    width: 300px;
+    height: 300px;
+}
+#img_22{
+    position:absolute;
+    /* 上右下左 */
+    clip:rect(100px 200px 200px 100px);
+    width: 300px;
+    height: 300px;
+}
+#img_23{
+    position:absolute;
+    /* 上右下左 */
+    clip:rect(100px 300px 200px 200px);
+    width: 300px;
+    height: 300px;
+}
+#img_31{
+    position:absolute;
+    /* 上右下左 */
+    clip:rect(200px 100px 300px 0px);
+    width: 300px;
+    height: 300px;
+}
+#img_32{
+    position:absolute;
+    /* 上右下左 */
+    clip:rect(200px 200px 300px 100px);
+    width: 300px;
+    height: 300px;
+}
+#img_33{
+    position:absolute;
+    /* 上右下左 */
+    clip:rect(200px 300px 300px 200px);
+    width: 300px;
+    height: 300px;
+}
