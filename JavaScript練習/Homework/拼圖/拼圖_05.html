@@ -105,6 +105,39 @@
             }
         })
 
+        document.getElementById('newgame').addEventListener('click', function () {
+            for (let i = 0; i < 9; i++) {
+                let box = document.getElementById(originalps[i]);
+                box.style.left = 0;
+                box.style.top = 0;
+            }
+
+            for (let i = 0; i < 9; i++) {
+                let temp = originalps[i];
+                ansps[i] = temp;
+            }
+            for (let i = 0; i < 9; i++) {
+                let temp = originalps[i];
+                nowps[i] = temp;
+            }
+            let RandomNumber = getRandomInt(9);
+            emptyps_ID = nowps[RandomNumber];
+            let box = document.getElementById(nowps[RandomNumber]);
+            box.style.left = '-2000px';
+            nowps[RandomNumber] = '空';
+            ansps[RandomNumber] = '空';
+            checkEmptyPlace();
+            for (let i = 0; i < 9; i++) {
+                console.log(`orps=${originalps[i]}`);
+            }
+            for (let j = 0; j < 9; j++) {
+                console.log(`ansps=${ansps[j]}`);
+            }
+            for (let k = 0; k < 9; k++) {
+                console.log(`nowps=${nowps[k]}`);
+            }
+        })
+
         document.getElementById('img_11').addEventListener('click', function () {
             clickEvent(this.value);
         })
