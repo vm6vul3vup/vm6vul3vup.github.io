@@ -19,10 +19,10 @@
 <body>
     <div class="btn-group">
         <button id="random">打亂拼圖</button>
-        <button id="right-btn">右移動</button>
+        <button id="reset">重新開始</button>
         <!-- <br> -->
-        <button id="top-btn">上移動</button>
-        <button id="down-btn">下移動</button>
+        <button id="top-btn">無功能</button>
+        <button id="down-btn">無功能</button>
     </div>
     <div class="container">
         <div class="box">
@@ -52,6 +52,7 @@
     <script type="module">
         import { $g, $c } from '../../modules/helpers.js';
         let Moving_Distance = 100;
+        let originalps = ['img_11', 'img_12', 'img_13', 'img_21', 'img_22', 'img_23', 'img_31', 'img_32', 'img_33'];
         let ansps = ['img_11', 'img_12', 'img_13', 'img_21', '空', 'img_23', 'img_31', 'img_32', 'img_33'];
         let nowps = ['img_11', 'img_12', 'img_13', 'img_21', '空', 'img_23', 'img_31', 'img_32', 'img_33'];
         let empty_up = '牆';
@@ -62,12 +63,47 @@
         $g('#img_12').value = 'img_12';
         $g('#img_13').value = 'img_13';
         $g('#img_21').value = 'img_21';
+        $g('#img_22').value = 'img_22';
         $g('#img_23').value = 'img_23';
         $g('#img_31').value = 'img_31';
         $g('#img_32').value = 'img_32';
         $g('#img_33').value = 'img_33';
+        let emptyps_ID = 'img_22';
 
         checkEmptyPlace();
+
+        //打亂拼圖
+        document.getElementById('random').addEventListener('click', function () {
+            // alert("打亂");
+            for (let i = 0; i < 100; i++) {
+                RandomPs();
+                console.log(i);
+            }
+        })
+
+        document.getElementById('reset').addEventListener('click', function () {
+            for (let i = 0; i < 9; i++) {
+                let temp = originalps[i];
+                ansps[i] = temp;
+            }
+            let RandomNumber = getRandomInt(9);
+            emptyps_ID = nowps[RandomNumber];
+            let box = document.getElementById(nowps[RandomNumber]);
+            console.log(box.style.left);
+            box.style.left = '-2000px';
+            nowps[RandomNumber] = '空';
+            ansps[RandomNumber] = '空';
+            checkEmptyPlace();
+            for (let i = 0; i < 9; i++) {
+                console.log(`orps=${originalps[i]}`);
+            }
+            for (let j = 0; j < 9; j++) {
+                console.log(`ansps=${ansps[j]}`);
+            }
+            for (let k = 0; k < 9; k++) {
+                console.log(`nowps=${nowps[k]}`);
+            }
+        })
 
         document.getElementById('img_11').addEventListener('click', function () {
             clickEvent(this.value);
@@ -79,6 +115,9 @@
             clickEvent(this.value);
         })
         document.getElementById('img_21').addEventListener('click', function () {
+            clickEvent(this.value);
+        })
+        document.getElementById('img_22').addEventListener('click', function () {
             clickEvent(this.value);
         })
         document.getElementById('img_23').addEventListener('click', function () {
@@ -94,7 +133,13 @@
             clickEvent(this.value);
         })
 
-        function clickEvent(value){
+        function RandomPs() {
+            let empty_index = nowps.indexOf('空');
+            MovePs(empty_index, getRandomInt(9));
+            checkEmptyPlace();
+        }
+
+        function clickEvent(value) {
             let empty_index = nowps.indexOf('空');
             let index = nowps.indexOf(value);
             MovePs(empty_index, index);
@@ -105,13 +150,25 @@
         function checkWin() {
             let check_same_count = 0;
             for (let i = 0; i < 9; i++) {
-                if(nowps[i] == ansps[i]) check_same_count++;
+                if (nowps[i] == ansps[i]) check_same_count++;
             }
             if (check_same_count == 9) {
                 alert('完成拼圖');
-                let box = document.getElementById('img_22');
+                let box = document.getElementById(emptyps_ID);
                 console.log(box.style.left);
                 box.style.left = 0;
+                let empty_index = nowps.indexOf('空');
+                nowps[empty_index] = emptyps_ID;
+                checkEmptyPlace();
+                for (let i = 0; i < 9; i++) {
+                    console.log(`orps=${originalps[i]}`);
+                }
+                for (let j = 0; j < 9; j++) {
+                    console.log(`ansps=${ansps[j]}`);
+                }
+                for (let k = 0; k < 9; k++) {
+                    console.log(`nowps=${nowps[k]}`);
+                }
             }
         }
 
@@ -154,6 +211,7 @@
             }
         }
 
+        //修正目前'空'所在的位置
         function checkEmptyPlace() {
             let empty = nowps.indexOf('空');
             if (empty == 0) {
@@ -263,6 +321,10 @@
                     })(i)
                 }
             })
+        }
+
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
         }
     </script>
 </body>
