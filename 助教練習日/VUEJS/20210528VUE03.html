@@ -24,6 +24,8 @@
         <input type="text" v-model="obj.A">
         <input type="text" v-model="obj.B">
 
+        <h1>{{fullname}}</h1>
+        <h1>{{objectDisplay}}</h1>
     </div>
 
 
@@ -37,6 +39,7 @@
         var myApp = new Vue({
             el: '#my-app',
             data:{
+                firstname: 'Hsu',
                 name: 'Tom',
                 obj:{
                     A: 'a',
@@ -58,6 +61,17 @@
                 },
                 'obj.B': function(){
                     console.log(`有人異動obj.B資料,現在B是:${this.obj.B}`)
+                },
+                objectDisplay: function(){
+                    console.log("object change")
+                }
+            },
+            computed:{
+                fullname: function(){
+                    return `${this.name} ${this.firstname}`;
+                },
+                objectDisplay: function(){
+                    return `${this.obj.A} & ${this.obj.B}`;
                 }
             }
         });
